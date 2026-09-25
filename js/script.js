@@ -139,7 +139,7 @@ const MusicModule = {
     init() {
         if (!DOM.musicContainer || !DOM.player) return;
 
-        fetch("music.json")
+        fetch("assets/json/lainavian/music.json")
             .then(r => r.json())
             .then(data => this.build(data))
             .catch(() => LogSystem.add("music load failed", "warn"));
@@ -363,7 +363,7 @@ const MusicModule = {
 
             if (!DOM.artContainer) return;
 
-            fetch("art.json")
+            fetch("assets/json/lainavian/art.json")
                 .then(r => r.json())
                 .then(data => this.build(data))
                 .catch(() => LogSystem.add("art load failed", "warn"));
@@ -425,7 +425,7 @@ const MusicModule = {
             const listContainer = document.getElementById("diaryListContainer");
             if (!listContainer) return;
 
-            fetch("diary.json")
+            fetch("assets/json/lainavian/diary.json")
                 .then(r => r.json())
                 .then(data => {
                     // Sort entries automatically by date (Oldest first)
@@ -1047,7 +1047,7 @@ const MusicModule = {
     script: [],
 
     init() {
-        fetch("terminal.json")
+        fetch("assets/json/lainavian/terminal.json")
             .then(r => r.json())
             .then(data => {
                 this.script = data;
