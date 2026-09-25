@@ -1,3 +1,5 @@
+/* IMPORTANT: Update CSS version number in dairy.html every time you make changes to this file */
+
 @keyframes flicker {
     0% {opacity: 0.86;}
     50% {opacity: 1;}

@@ -1,3 +1,5 @@
+// IMPORTANT: Update JS version number in dairy.html every time you make changes to this file
+
 document.addEventListener("DOMContentLoaded", () => {
 
     // =================================================
