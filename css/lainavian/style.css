@@ -103,7 +103,7 @@
 }
 
 body {
-    background-image: url('assets/images/background/lainavian/bg.jpg');
+    background-image: url('../../assets/images/background/lainavian/bg.jpg');
     background-color: #020202; /* fallback */
     color: #d6c6ff;
     font-family: VT323, monospace;
@@ -926,7 +926,7 @@ body.art-page {
     width: 70vw;
     height: 18.5vh;
 
-    background-image: url("assets/images/background/lainavian/Banner.png");
+    background-image: url("../../assets/images/background/lainavian/Banner.png");
     background-size: cover;
     background-position: center right;
     background-repeat: no-repeat;
