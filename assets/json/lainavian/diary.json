@@ -134,15 +134,13 @@
         "content": "1hN+z0BLZO7cBXL90jTk0bz79TJ2F4MYsMqkrYPlZ6qh+KtllkFG8WzjSQdKUCIXGUIeU68q5Ru/EHPSu1FMJcD8yI0o7Nxi+pXkiWWlWA8b7ZSAKO4p8fitItz73kHvvYc+zYszgljISkfvE3rc4jIaHJOoAWhvXb6Hc0ccFVXayothj0t1JRsJs8shnlhTWZZo05q8+WkW2MFANZcCe9SxmjSEYbbyNMeRagduJThmx3KKjzDF8FeFeE6i2Pk1o7jo+gxwzmsfmu2RFzFKaPcK/qtyKM4WbdvPJa/Olh947Jb78Il66cNABleJmb1J47eebhcc51EZeq9085JKL7wbXCVOOehgjjc6D/tmQkvFtLCqt9O9h5OjKhCz3y1iaXtgusHp3jqqRCdsq2iCZLPLJe3M+JWWg6eKBTOIxgcdXogo4wa/MyVpqOq/mqqvThOgHLm8bsT85IUuH3f9iza/MaXoU2E37d0/kcZoGe5s1ilrZ0Qlx6B77Ai/ufcX23q+0OMmAsE6+Lwxj7xA49k36epPoR5H6tLfuuyViXEkhYzOT00r30dD1wCijIuLp6/71tX7QxEyoQLJymMlHGME0+Ki45eX5YH6TbwFDscW/bUot/bNlijrQEH6jhj+w9kYZaWPUGnGWdzbwVvAn47PPkggdNJXfvfzfa0m71zJXgZovFan53hU+m1EehHSz+cfrM3WbvP188jmYuexLtk4CtvyiYZnyZUz8izyiczsNfozXjtMnDgh3jRhPKuiUMaDq7pClnOvSLWtw88zSEzR2FS3lzYN9XxmPzViDo70jPDotnIDxKN5bUU8vGDV5+GHRA48kOYO2J+mrtmQMLzOPw/SgJun+oIXJykHH5eowzNzBK5UxkCfBJ8W9/2szvyK2nJ6zo1Fx4iY6RU33rX7eQ/lOykvk5Drb3Mn+kwiNTfwsAdX24o8zygEet1uPII7J5JteSsRePZucesgHxEZMfnkW9iucPR0/tl3l7dS/477LrLbYkS5q7Yg6rh8QeDSfZAtxms3oLERXvBNXDXM+s1NwEqEYzT0xHWia0ZNJLdsJeRf2T4NvLbKRIU6e/bjdKiLhABGxrMRffZdnAgsvkGDAjxc0sxrsydSS7jtfscv1oOUwnhir+G9i/FX+Pmdj6JUuGPtkvQ6A6iFF8XuhM7ndqAHDd1ycIaj6C8xlWCgDhvL8GMKGfK263hUPA3sPXTFmqKZysqHO21YXp7bx7x5NIog3q2bgu7zYVa8Ux09riXCXdl6VSk1xQeIjQ=="
     },
     {
-        "date": "test",
-        "title": "test",
-        "isTitleEncrypted": false ,
-        "userColor": "blue",
-        "titleColor": "blue",
+        "date": "26-09-2026",
+        "title": "Diary",
+        "isTitleEncrypted": false,
+        "userColor": "White",
+        "titleColor": "White",
         "dateColor": "#a8b2ff",
-        "entryColor": "blue",
-        "isEncrypted": true,
-        "iv": "5tomOLjn38FFdeWl",
-        "content": "XdqdVt4TFeO2Ix9oMyb46/DQ/94="
+        "isEncrypted": false,
+        "content": "Welcome to the diary. Here thoughts and feelings mingle and evolve. Most thoughts will be encrypted by complex minds. Enjoy, xoxo - Two Souls named <span class=\"censor-glitch encrypted-word\" data-text=\"XXXXXXXXXXXXXXXXXXXXXXXXX\" data-iv=\"Y1NZAnEdsxmjsyla\" data-cipher=\"bmIkDUtqqAlq9WB2Ax+NJ6uYk2mY01TqrqtB0Cw3A734zmiyfiriXqM=\"></span>"
     }
 ]
