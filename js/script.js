@@ -455,6 +455,7 @@ const MusicModule = {
         },
 
         async renderList(data) {
+            if (!this.openAccordions) this.openAccordions = new Set();
             const listContainer = document.getElementById("diaryListContainer");
             if (!listContainer) return;
 
@@ -488,13 +489,18 @@ const MusicModule = {
                 
                 const yearContent = document.createElement("div");
                 yearContent.className = "accordion-content year-content";
-                yearContent.style.display = "none"; // Collapsed by default
+                // yearContent.style.display = "none"; // Collapsed by default
+                const yearKey = year;
+                yearContent.style.display = this.openAccordions.has(yearKey) ? "block" : "none";
+                yearHeader.querySelector(".accordion-arrow").textContent = this.openAccordions.has(yearKey) ? "v" : ">";   
 
                 // Toggle Year
                 yearHeader.addEventListener("click", () => {
                     const isOpen = yearContent.style.display === "block";
                     yearContent.style.display = isOpen ? "none" : "block";
                     yearHeader.querySelector(".accordion-arrow").textContent = isOpen ? ">" : "v";
+                    if (isOpen) this.openAccordions.delete(yearKey);   // ← add
+                    else this.openAccordions.add(yearKey);              // ← add
                 });
 
                 // Month Groups inside Year
@@ -507,7 +513,10 @@ const MusicModule = {
 
                     const monthContent = document.createElement("div");
                     monthContent.className = "accordion-content month-content";
-                    monthContent.style.display = "none";
+                    // monthContent.style.display = "none";
+                    const monthKey = `${year}-${monthStr}`;
+                    monthContent.style.display = this.openAccordions.has(monthKey) ? "block" : "none";
+                    monthHeader.querySelector(".accordion-arrow").textContent = this.openAccordions.has(monthKey) ? "v" : ">";      
 
                     // Toggle Month
                     monthHeader.addEventListener("click", (e) => {
@@ -515,6 +524,8 @@ const MusicModule = {
                         const isOpen = monthContent.style.display === "block";
                         monthContent.style.display = isOpen ? "none" : "block";
                         monthHeader.querySelector(".accordion-arrow").textContent = isOpen ? ">" : "v";
+                        if (isOpen) this.openAccordions.delete(monthKey);   // ← add
+                        else this.openAccordions.add(monthKey);              // ← add
                     });
 
                     // Log Items inside Month
@@ -569,21 +580,28 @@ const MusicModule = {
         bindSearch() {
             const searchInput = document.getElementById("diarySearch");
             if (!searchInput) return;
-
+            
+            let debounceTimer;
             searchInput.addEventListener("input", (e) => {
-                const query = e.target.value.toLowerCase().trim();
-                const filtered = this.entries.filter(entry => {
-                    const titleMatch = entry.title && entry.title.toLowerCase().includes(query);
-                    const dateMatch = entry.date && entry.date.toLowerCase().includes(query);
-                    const contentMatch = entry.content && entry.content.toLowerCase().includes(query);
-                    const colorMatch = entry.color && entry.color.toLowerCase().includes(query);
-
-                    return titleMatch || dateMatch || contentMatch || colorMatch;
-                });
-                
-                this.renderList(filtered);
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    const query = e.target.value.toLowerCase().trim();
+                    const filtered = this.entries.filter(entry => {
+                        const titleMatch = entry.title && entry.title.toLowerCase().includes(query);
+                        const dateMatch = entry.date && (() => {
+                            const [day, month, year] = entry.date.split("-");
+                            return [day, month, year].some(part => part.startsWith(query));
+                        })();
+                        const contentMatch = entry.content && entry.content.toLowerCase().includes(query);
+                        const colorMatch = [entry.userColor, entry.titleColor, entry.dateColor, entry.entryColor]
+                            .some(c => c && c.toLowerCase().includes(query));   
+                        return titleMatch || dateMatch || contentMatch || colorMatch;
+                    });
+                    this.renderList(filtered);
+                }, 200);
             });
-        },
+        }, 
+
 
         async getKey(password) {
             const enc = new TextEncoder();
@@ -729,6 +747,7 @@ const MusicModule = {
                             if (titleEl) {
                                 titleEl.textContent = decrypted;
                             }
+                            e.title = decrypted;          // ← new line
                             e.isTitleEncrypted = false;
                         }
                     } catch (err) {
