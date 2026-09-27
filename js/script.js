@@ -402,7 +402,7 @@ const MusicModule = {
         }
     };
     
-// =================================================
+    // =================================================
     // DIARY MODULE (WITH ACCORDION HIERARCHY & ENCRYPTION)
     // =================================================
     const DiaryModule = {
@@ -489,7 +489,6 @@ const MusicModule = {
                 
                 const yearContent = document.createElement("div");
                 yearContent.className = "accordion-content year-content";
-                // yearContent.style.display = "none"; // Collapsed by default
                 const yearKey = year;
                 yearContent.style.display = this.openAccordions.has(yearKey) ? "block" : "none";
                 yearHeader.querySelector(".accordion-arrow").textContent = this.openAccordions.has(yearKey) ? "v" : ">";   
@@ -499,8 +498,8 @@ const MusicModule = {
                     const isOpen = yearContent.style.display === "block";
                     yearContent.style.display = isOpen ? "none" : "block";
                     yearHeader.querySelector(".accordion-arrow").textContent = isOpen ? ">" : "v";
-                    if (isOpen) this.openAccordions.delete(yearKey);   // ← add
-                    else this.openAccordions.add(yearKey);              // ← add
+                    if (isOpen) this.openAccordions.delete(yearKey);   
+                    else this.openAccordions.add(yearKey);              
                 });
 
                 // Month Groups inside Year
@@ -513,7 +512,6 @@ const MusicModule = {
 
                     const monthContent = document.createElement("div");
                     monthContent.className = "accordion-content month-content";
-                    // monthContent.style.display = "none";
                     const monthKey = `${year}-${monthStr}`;
                     monthContent.style.display = this.openAccordions.has(monthKey) ? "block" : "none";
                     monthHeader.querySelector(".accordion-arrow").textContent = this.openAccordions.has(monthKey) ? "v" : ">";      
@@ -524,15 +522,15 @@ const MusicModule = {
                         const isOpen = monthContent.style.display === "block";
                         monthContent.style.display = isOpen ? "none" : "block";
                         monthHeader.querySelector(".accordion-arrow").textContent = isOpen ? ">" : "v";
-                        if (isOpen) this.openAccordions.delete(monthKey);   // ← add
-                        else this.openAccordions.add(monthKey);              // ← add
+                        if (isOpen) this.openAccordions.delete(monthKey);   
+                        else this.openAccordions.add(monthKey);              
                     });
 
                     // Log Items inside Month
                     for (const entry of grouped[year][monthStr]) {
                         const div = document.createElement("div");
                         div.className = "diary-entry-item";
-                        div.dataset.index = data.indexOf(entry); // ← add this line
+                        div.dataset.index = data.indexOf(entry);
 
                         const userColor = entry.userColor || "rgba(180, 120, 255, 0.4)";
                         const titleColor = entry.titleColor || "#ffffff";
@@ -732,10 +730,6 @@ const MusicModule = {
                 this.globalPassword = passAttempt; 
                 authContainer.remove();
                 
-                // // Refresh sidebar list to reveal decrypted titles
-                // await this.renderList(this.entries);
-                // this.renderStream(finalContent, entry.date, terminal);
-                
                 for (const e of this.entries) {
                     if (!e.isTitleEncrypted) continue;
 
@@ -747,7 +741,7 @@ const MusicModule = {
                             if (titleEl) {
                                 titleEl.textContent = decrypted;
                             }
-                            e.title = decrypted;          // ← new line
+                            e.title = decrypted;
                             e.isTitleEncrypted = false;
                         }
                     } catch (err) {
