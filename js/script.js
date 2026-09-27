@@ -646,6 +646,10 @@ const MusicModule = {
             const terminal = document.getElementById("diaryTerminal");
             if (!terminal) return;
 
+            this.currentEntry = entry;       // ← add here
+            this.currentTerminal = terminal; // ← add here
+
+
             terminal.innerHTML = ""; 
 
             // Set the dynamic glow color on the terminal container
@@ -884,7 +888,7 @@ const MusicModule = {
             const input = inlineAuth.querySelector(".inline-input");
             const btn = inlineAuth.querySelector(".inline-btn");
 
-            const handleInlineAuthSubmit = async () => {
+            const handleInlineAuthSubmit = async () => {                
                 const passAttempt = input.value;
                 if (!passAttempt) return;
 
@@ -893,6 +897,29 @@ const MusicModule = {
                 if (success) {
                     this.globalPassword = passAttempt; // Save key for session persistence
                     inlineAuth.remove(); // Clear input prompt
+                    
+                    for (const e of this.entries) { // Refreshes log entries
+                        if (!e.isTitleEncrypted) continue;
+
+                        try {
+                            const decrypted = await this.decryptData(e.title, e.titleIv, passAttempt);
+                            if (decrypted) {
+                                const idx = this.entries.indexOf(e);
+                                const titleEl = document.querySelector(`.diary-entry-item[data-index="${idx}"] .diary-title`);
+                                if (titleEl) {
+                                    titleEl.textContent = decrypted;
+                                }
+                                e.title = decrypted;
+                                e.isTitleEncrypted = false;
+                            }
+                        } catch (err) {
+                            console.warn(`decrypt title failed:`, err);
+                        }
+                    }
+
+                    this.currentTerminal.innerHTML = "";
+                    this.renderStream(this.currentEntry.content, this.currentEntry.date, this.currentTerminal); //Rerender
+
                 } else {
                     input.value = "";
                     input.style.borderColor = "rgb(255, 75, 84)";
@@ -1308,5 +1335,4 @@ Terminal.init();
     IdleSystem.init();
     DiaryModule.init();
     BootSequenceModule.init();
-    CensorModule.init();
 });
