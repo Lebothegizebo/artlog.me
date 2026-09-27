@@ -521,6 +521,7 @@ const MusicModule = {
                     for (const entry of grouped[year][monthStr]) {
                         const div = document.createElement("div");
                         div.className = "diary-entry-item";
+                        div.dataset.index = data.indexOf(entry); // ← add this line
 
                         const userColor = entry.userColor || "rgba(180, 120, 255, 0.4)";
                         const titleColor = entry.titleColor || "#ffffff";
@@ -656,9 +657,12 @@ const MusicModule = {
                 }
 
                 if (finalContent) {
-                    // Refresh sidebar list to reveal decrypted titles
-                    this.renderList(this.entries);
-                    this.renderStream(finalContent, entry.date, terminal);
+                    // Refresh sidebar list for the one entry you have selected
+                    const sidebarItem = document.querySelector(`.diary-entry[data-id="${entry.id}"] .entry-title`);
+                    if (sidebarItem) {
+                        sidebarItem.textContent = this.getDecryptedTitle(entry, finalContent);
+                    }
+                this.renderStream(finalContent, entry.date, terminal);
                 } else {
                     this.renderAuthScreen(entry, terminal, header);
                 }
@@ -710,8 +714,30 @@ const MusicModule = {
                 this.globalPassword = passAttempt; 
                 authContainer.remove();
                 
-                // Refresh sidebar list to reveal decrypted titles
-                await this.renderList(this.entries);
+                // // Refresh sidebar list to reveal decrypted titles
+                // await this.renderList(this.entries);
+                // this.renderStream(finalContent, entry.date, terminal);
+                
+                for (const e of this.entries) {
+                    if (!e.isTitleEncrypted) continue;
+
+                    try {
+                        const decrypted = await this.decryptData(e.title, e.titleIv, passAttempt);
+                        if (decrypted) {
+                            const idx = this.entries.indexOf(e);
+                            const titleEl = document.querySelector(`.diary-entry-item[data-index="${idx}"] .diary-title`);
+                            if (titleEl) {
+                                titleEl.textContent = decrypted;
+                            }
+                            e.isTitleEncrypted = false;
+                        }
+                    } catch (err) {
+                        console.warn(`decrypt title failed:`, err);
+                    }
+                }
+
+
+
                 this.renderStream(finalContent, entry.date, terminal);
             };
 
