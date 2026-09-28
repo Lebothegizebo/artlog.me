@@ -549,7 +549,7 @@ const MusicModule = {
                                 const decryptedTitle = await this.decryptData(entry.title, entry.titleIv, this.globalPassword);
                                 displayTitle = decryptedTitle || "[ DECRYPTION FAILED ]";
                             } else {
-                                displayTitle = "[ ENCRYPTED ENTRY ]";
+                                displayTitle = "[ <span class=\"censor-glitch\" data-text=\"XXXXXXXXXXXXXXX\"></span> ]";
                             }
                         }
 
@@ -646,8 +646,8 @@ const MusicModule = {
             const terminal = document.getElementById("diaryTerminal");
             if (!terminal) return;
 
-            this.currentEntry = entry;       // ← add here
-            this.currentTerminal = terminal; // ← add here
+            this.currentEntry = entry;       
+            this.currentTerminal = terminal; 
 
 
             terminal.innerHTML = ""; 
@@ -737,23 +737,24 @@ const MusicModule = {
                 for (const e of this.entries) {
                     if (!e.isTitleEncrypted) continue;
 
+                    const idx = this.entries.indexOf(e);
+                    const titleEl = document.querySelector(`.diary-entry-item[data-index="${idx}"] .diary-title`);
+                    if (!titleEl) continue;
+
                     try {
                         const decrypted = await this.decryptData(e.title, e.titleIv, passAttempt);
+                        console.log("decrypt result:", decrypted, typeof decrypted)
                         if (decrypted) {
-                            const idx = this.entries.indexOf(e);
-                            const titleEl = document.querySelector(`.diary-entry-item[data-index="${idx}"] .diary-title`);
-                            if (titleEl) {
-                                titleEl.textContent = decrypted;
-                            }
+                            titleEl.textContent = decrypted;
                             e.title = decrypted;
                             e.isTitleEncrypted = false;
+                        } else {
+                            titleEl.textContent = "[ DECRYPTION FAILED ]";
                         }
                     } catch (err) {
-                        console.warn(`decrypt title failed:`, err);
+                        titleEl.textContent = "[ DECRYPTION FAILED ]";
                     }
-                }
-
-
+                }   
 
                 this.renderStream(finalContent, entry.date, terminal);
             };
@@ -865,7 +866,7 @@ const MusicModule = {
                 });
             });
         },
-
+        
         renderInlineAuthPrompt(container) {
             // Avoid generating duplicate input fields
             if (container.querySelector(".inline-pass-box")) return;
@@ -903,6 +904,7 @@ const MusicModule = {
 
                         try {
                             const decrypted = await this.decryptData(e.title, e.titleIv, passAttempt);
+                            console.log("decrypt result:", decrypted, typeof decrypted)
                             if (decrypted) {
                                 const idx = this.entries.indexOf(e);
                                 const titleEl = document.querySelector(`.diary-entry-item[data-index="${idx}"] .diary-title`);
@@ -911,6 +913,8 @@ const MusicModule = {
                                 }
                                 e.title = decrypted;
                                 e.isTitleEncrypted = false;
+                            } else {
+                                if (titleEl) titleEl.textContent = "[ DECRYPTION FAILED ]";                                
                             }
                         } catch (err) {
                             console.warn(`decrypt title failed:`, err);
@@ -923,6 +927,9 @@ const MusicModule = {
                 } else {
                     input.value = "";
                     input.style.borderColor = "rgb(255, 75, 84)";
+
+                    
+                    
                 }
             };
 
