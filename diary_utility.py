@@ -21,7 +21,7 @@ if __name__ == "__main__":
     entry_date = input("Enter Date (e.g., 21-07-2026): ").strip()
     entry_title = input("Enter Title: ").strip()
     entry_titlecolor = input("Enter Log Title Colour: (e.g., Red, Yellow, Green): ").strip()
-    entry_usercolor = input("Enter User Colour (e.g., Blue, Purple):").strip()
+    entry_usercolor = input("Enter User Colour (e.g., Blue, Purple): ").strip()
     entry_datecolor = "#a8b2ff"
     entry_text = input("Enter Content: ").strip()
 
