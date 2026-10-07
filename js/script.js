@@ -412,7 +412,9 @@ const MusicModule = {
         glitchChars: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!<>-_\\/[]{}—=+*^?#",
         
         // Session key memory (persists across entries)
-        globalPassword: null, 
+        globalPassword: null,
+        inlinePassword: null,
+        
 
         // Helper method to convert "DD-MM-YYYY" strings into valid Date objects
         parseDate(dateString) {
@@ -532,10 +534,29 @@ const MusicModule = {
                         div.className = "diary-entry-item";
                         div.dataset.index = data.indexOf(entry);
 
+                        //Check to see if color is valid
+                        isUserColorValid = CSS.supports('color', entry.userColor)
+                        isTitleColorValid = CSS.supports('color', entry.titleColor)
+                        isDateColorValid = CSS.supports('color', entry.dateColor)
+                        isEntryColorValid = CSS.supports('color', entry.entryColor)
+
+                        if (!isUserColorValid) {
+                            entry.userColor = "rgba(180, 120, 255, 0.4)"
+                        }
+                        if (!isTitleColorValid) {
+                            entry.titleColor = "#ffffff"
+                        }
+                        if (!isDateColorValid) {
+                            entry.dateColor = "#a8b2ff";
+                        }
+                        if (!isEntryColorValid) {
+                            entry.entryColor = "rgba(180, 120, 255, 0.4)"
+                        }
+
                         const userColor = entry.userColor || "rgba(180, 120, 255, 0.4)";
                         const titleColor = entry.titleColor || "#ffffff";
-                        const dateColor = entry.dateColor || "#a8b2ff";
                         const entryColor = entry.entryColor || "rgba(180, 120, 255, 0.4)";
+                        const dateColor = entry.dateColor || "#a8b2ff";
 
                         //Important Varible Names
                         div.style.setProperty("--user-color", userColor);
@@ -668,6 +689,9 @@ const MusicModule = {
             }
 
             // 2. Encrypted path using cached session password
+            if (this.inlinePassword) {
+                this.globalPassword = this.inlinePassword
+            }
             if (this.globalPassword) {
                 header.textContent = `> VAULT KEY ALREADY IN CACHE BUFFER... RUNNING PIPELINE`;
                 
@@ -721,8 +745,9 @@ const MusicModule = {
                 let finalContent = entry.content;
                 if (entry.isEncrypted) {
                     finalContent = await this.decryptData(entry.content, entry.iv, passAttempt);
+                    console.log("decrypt result:", finalContent, typeof finalContent)
                 }
-                
+
                 if (!finalContent) {
                     header.textContent = `> DECRYPTION FAILED: INVALID CRITICAL ARCHIVE MATRIX PASSKEY.`;
                     header.className = "log-entry warn";
@@ -732,6 +757,7 @@ const MusicModule = {
                 }
 
                 this.globalPassword = passAttempt; 
+                this.inlinePassword = passAttempt;
                 authContainer.remove();
                 
                 for (const e of this.entries) {
@@ -798,6 +824,8 @@ const MusicModule = {
             
             this.typeText(contentBody, content, terminal);
         },
+        
+
 
         typeText(element, text, container, speed = 15) {
             this.isTyping = true;
@@ -820,8 +848,8 @@ const MusicModule = {
                     this.bindInlineWordListeners(container);
 
                     // Persistent auto-decryption on load!
-                    if (this.globalPassword) {
-                        this.decryptAllInlineWords(this.globalPassword);
+                    if (this.inlinePassword) {
+                        this.decryptAllInlineWords(this.inlinePassword);
                     }
                     return;
                 }
@@ -856,8 +884,8 @@ const MusicModule = {
                     if (word.classList.contains('decrypted-inline')) return;
 
                     // If password is already cached, unlock instantly
-                    if (this.globalPassword) {
-                        const success = await this.decryptAllInlineWords(this.globalPassword);
+                    if (this.inlinePassword) {
+                        const success = await this.decryptAllInlineWords(this.inlinePassword);
                         if (success) return;
                     }
 
@@ -890,20 +918,26 @@ const MusicModule = {
             const btn = inlineAuth.querySelector(".inline-btn");
 
             const handleInlineAuthSubmit = async () => {                
-                const passAttempt = input.value;
-                if (!passAttempt) return;
+                const inlinePassAttempt = input.value;
+                input.value = "";
+                if (!inlinePassAttempt) return;
 
-                const success = await this.decryptAllInlineWords(passAttempt);
+                const success = await this.decryptAllInlineWords(inlinePassAttempt);
                 
                 if (success) {
-                    this.globalPassword = passAttempt; // Save key for session persistence
+                    this.inlinePassword = inlinePassAttempt; // Save key for session persistence
+                    console.log("Inline Password:", this.inlinePassword)
+                    console.log("Global Password:", this.globalPassword)
+                    console.log("inlinePassAttempt:", inlinePassAttempt)
+                    // console.log("PassAttempt", passAttempt)
+                    console.log("input.vaule:", input.vaule)
                     inlineAuth.remove(); // Clear input prompt
                     
                     for (const e of this.entries) { // Refreshes log entries
                         if (!e.isTitleEncrypted) continue;
 
                         try {
-                            const decrypted = await this.decryptData(e.title, e.titleIv, passAttempt);
+                            const decrypted = await this.decryptData(e.title, e.titleIv, inlinePassAttempt);
                             console.log("decrypt result:", decrypted, typeof decrypted)
                             if (decrypted) {
                                 const idx = this.entries.indexOf(e);
@@ -914,15 +948,21 @@ const MusicModule = {
                                 e.title = decrypted;
                                 e.isTitleEncrypted = false;
                             } else {
-                                if (titleEl) titleEl.textContent = "[ DECRYPTION FAILED ]";                                
+                                titleEl.textContent = "[ DECRYPTION FAILED ]";                                
                             }
                         } catch (err) {
                             console.warn(`decrypt title failed:`, err);
                         }
                     }
-
+                    let finalContent = this.currentEntry.content;
+                    let entry = this.currentEntry
+                    if (this.globalPassword) {
+                        if (entry.isEncrypted) {
+                            finalContent = await this.decryptData(entry.content, entry.iv, this.globalPassword);
+                        } 
+                    }
                     this.currentTerminal.innerHTML = "";
-                    this.renderStream(this.currentEntry.content, this.currentEntry.date, this.currentTerminal); //Rerender
+                    this.renderStream(finalContent, this.currentEntry.date, this.currentTerminal); //Rerender
 
                 } else {
                     input.value = "";
