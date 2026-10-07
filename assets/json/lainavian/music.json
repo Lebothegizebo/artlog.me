@@ -126,6 +126,12 @@
         "meta": "2023-2025",
         "file": "assets/music/lainavian/TrackList2/Track5.mp3",
         "cover": "assets/images/lainavian/art/9.jpg"
+      },
+      {
+        "title": "Track 6",
+        "meta": "2023-2025",
+        "file": "assets/music/lainavian/TrackList2/Track6.mp3",
+        "cover": "assets/images/lainavian/art/9.jpg"
       }
     ]
   },
@@ -361,6 +367,12 @@
         "title": "Track 10",
         "meta": "Meika Hime/Mikoto",
         "file": "assets/music/lainavian/Vocaloid/Track10.mp3",
+        "cover": "assets/images/lainavian/art/7.jpg"
+      },
+      {
+        "title": "Track 11",
+        "meta": "Meika Hime/Mikoto",
+        "file": "assets/music/lainavian/Vocaloid/Track11.mp3",
         "cover": "assets/images/lainavian/art/7.jpg"
       }
     ]
