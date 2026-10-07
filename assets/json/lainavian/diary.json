@@ -142,5 +142,30 @@
         "dateColor": "#a8b2ff",
         "isEncrypted": false,
         "content": "Welcome to the diary. Here thoughts and feelings mingle and evolve. Most thoughts will be encrypted by complex minds. Enjoy, xoxo - Two Souls named <span class=\"censor-glitch encrypted-word\" data-text=\"XXXXXXXXXXXXXXXXXXXXXXXXX\" data-iv=\"Y1NZAnEdsxmjsyla\" data-cipher=\"bmIkDUtqqAlq9WB2Ax+NJ6uYk2mY01TqrqtB0Cw3A734zmiyfiriXqM=\"></span>"
+    },
+    {
+        "date": "29-09-2026",
+        "title": "Invasive",
+        "isTitleEncrypted": false ,
+        "userColor": "Purple",
+        "titleColor": "Red",
+        "dateColor": "#a8b2ff",
+        "entryColor": "Red",
+        "isEncrypted": true,
+        "iv": "7C0/AK/XrV8gCP7Y",
+        "content": "ClUMm9eTvpwwlkGBzuXOoKLyqS325RieQcKNI3+bLtKim7htIJuLq/sMkQLFiBRStGH2OrAudAZ4e5Gno1MTmXSTtHyxVcea8hC4rr9q6miuDA3XlL5pT01VQNoH6u5AKu94+Hlqr6mT4ilRqw47OUYeeELmtAwUDbVwyQY1Z5IMrfGryo70mLdYwQWV3JlAr56alJahmGG/1OFAYuj8El1KHwjjZbziSQHEYrl97BBtTk5YeqzGj9DMxjMn07sQKYYMKQS3AeHvzPP3Q1N2fF7rL6w1BmYk73pBTRUnR7KbydivqfsyooA7UWx9EEE/Fuo3HIIF9KNdV4nRjESuLYHRkF/cq44RSThMXfHHtkIqcSDaVspaBguUACkxE8iB+YNRlhgsA73wv/qxVhWry6MlpJKEn8zAG7SI0I+Te3wDB7P1WFU6cvW1c+KOTJZesTKZ6G5fPjMhB/myVIMFZIimGuJbiU5e8lvn6DQoE+Tk000hXNxNU9bKSh+0Z/kvnPGCKtAWgFvSx64rf0FVD1+ZgE9emPOgO9i1QScVtK4LWbFiVVcAeBw2ZZ4Jj/Z507yPL+HzDv2dyeZRv18HtFTjqeBg5KSG2TBBIr6izsI4o2Saa5xTUF4m35dc8MAaw9g8teo0z6nFKESeP3jdQq/UZrfaJwT3ruwTjr1coxLh+A5crjy2O5XtE2uAfCv+f2OWuiCdvHM6ZZTOwaAzwAHR7haGzInjqzH3hVlEZg7Ez7v8z8BqI47GfrAEjhUFis+EtKBUG8F36AqRYzB6VBCzVAzBfeYz7InHTYAgwk7umbJZHQXyq6nLiMzTuaG/7GLYA5uRDYJn4FRXFcxDuXpipLMeRNxm6bpKLhVIvl8zNrf2zMBXdw=="
+    },
+    {
+        "date": "29-09-2026",
+        "title": "pmRN7KoJGmKrV1GPeWOAa5SEqTIjXe0=",
+        "titleIv": "FeFbKsSRk093xLCO",
+        "isTitleEncrypted": true ,
+        "userColor": "Purple",
+        "titleColor": "Red",
+        "dateColor": "#a8b2ff",
+        "entryColor": "Red",
+        "isEncrypted": true,
+        "iv": "Mu24xtEwioouqUeU",
+        "content": "HviL+XU9VNZpoycmmh95yhgxZm72YywQ/+TUrcDa305km+W4hW+IgPBJiQBwmGY18h3LdGhHChw0H5TL1Pj3/Zb+hKJrLbf7PTDyGaDf9GoBjpCAYDRFreH19nv73UREPtjZ9hbEGBBn7ZtaajBLevOWGBV6qku5O9PTPXIVc28MkWooz3P+LXNEikHOFk3qNyepJHSTp+9GDRQoPiO9PcNfewCUQp55j0oj3Om6JwfyMJtygER8gg/nhJA+W9Zn5ZykxMczxdOMygYuTX390g6YnEMfbozcVzyVOqR/Kt2zXkAGCLfj+g5WxFxFM1rveCxksiGA3KLpbLu826hm4UkpVa/XYqSMCU/gbRMU9vW+hLEJ+q8nx0sj/IyRflKNCMfRO0Z+aOTj+T17ZL4QVSkhiluToNPkS0zahk1AMfzUxL7BsqT30uxfDgODM4PaImSZ74ZAZsm8v7LR+MIxU0E8E/GbZ8wsfswmvzWXWT6ma42RCZJcdphtAap8mbTXcRsGvSay60/KbdybXkrhKxmu903haKtLQ4M81G46kzFSoqf/xQnNJfkUoPLO6+Xv3XEGzOCRdQ2NDa6RIMlnzgZgSHAgwQAKFwHoZbl3fxt/jf6zaGrnVQhn9qyOY1QWu1b3caqGTSgiIm0QP8zeGjoQwme+cb1R0cCWlznbWYEAo/kvwkDJtrc2gdOnj37NhXFQgT7GR8Bc"
     }
 ]
